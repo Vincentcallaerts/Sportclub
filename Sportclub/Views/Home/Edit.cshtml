@@ -1,0 +1,45 @@
+﻿@model EditViewModel
+
+
+<form asp-controller="Home" asp-action="Edit" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="Photo"></label>
+        <p><img src="@Model.ImgPath" /></p>
+        <input asp-for="Photo" class="form-control" />
+        <span class="text-danger" asp-validation-for="Photo"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Voornaam"></label>
+        <input class=" form-control" asp-for="Voornaam" />
+        <span class="text-danger" asp-validation-for="Voornaam"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Achternaam"></label>
+        <input class=" form-control" asp-for="Achternaam" />
+        <span class="text-danger" asp-validation-for="Achternaam"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Geslacht"></label>
+        <select class="form-control" asp-items="@Model.Geslachten" asp-for="Geslacht"></select>
+        <span class="text-danger" asp-validation-for="Geslacht"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Geboortedatum"></label>
+        <input class=" form-control" asp-for="Geboortedatum" />
+        <span class="text-danger" asp-validation-for="Geboortedatum"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GewichtKg"></label>
+        <input class="form-control" asp-for="GewichtKg" />
+        <span class="text-danger" asp-validation-for="GewichtKg"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LengteCm"></label>
+        <input class=" form-control" asp-for="LengteCm" />
+        <span class="text-danger" asp-validation-for="LengteCm"></span>
+    </div>
+    <br />
+    <button class="btn btn-success" type="submit">Create</button>
+    <a class="btn btn-warning" asp-controller="Home" asp-action="Index">Terug naar overzicht</a>
+</form>

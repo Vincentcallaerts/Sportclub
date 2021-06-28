@@ -1,0 +1,16 @@
+﻿@model DetailViewModel
+<a class="btn btn-warning" asp-controller="Home" asp-action="Index">Terug naar overzicht</a>
+
+<div id="detail" class="card">
+    <img style="max-height:350px;" class="card-img-top" src="@Model.ImgPath">
+
+    <div class="card-body">
+        <h5 class="card-title">@Model.Voornaam @Model.Achternaam</h5>
+        <p class="card-text">Geslacht: @Model.Geslacht</p>
+        <p class="card-text">Geboortedatum: @Model.Geboortedatum.ToString("dd/MM/yyyy")</p>
+
+        <p class="card-text">Gewicht: @Model.GewichtKg</p>
+        <p class="card-text">Lengte: @Model.LengteCm</p>
+    </div>
+
+</div>

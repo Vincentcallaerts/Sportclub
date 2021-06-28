@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model IEnumerable<ListViewModel>
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+        </div>
+    </div>
+</div>
+<h1>Sporters</h1>
+@if (Model == null || Model.Count() == 0)
+{
+    <p>Er zijn geen Sporters in de sportclub (;</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Volledige Naam</th>
+                <th scope="col">Geboortedatum</th>
+                <th scope="col">Opties</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">@item.Voornaam @item.Achternaam</td>
+                    <td scope="row">@item.Geboortedatum.ToString("dd:MM:yyyy")</td>
+                    <td scope="row">
+                        <nav class="nav">
+                            <a class="nav-item" asp-controller="home" asp-action="detail" asp-route-id="@item.Id">
+                                <input type="button" class="btn btn-primary" value="Detail" />
+                            </a>
+                            <a class="nav-item" asp-controller="home" asp-action="edit" asp-route-id="@item.Id">
+                                <input type="button" class="btn btn-warning" value="Edit" />
+                            </a>
+                            <form class="nav-item" asp-controller="Home" asp-action="comfirmdelete" asp-route-id="@item.Id" method="post"><button class="btn btn-danger">Delete</button></form>
+                        </nav>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+<br />
+
