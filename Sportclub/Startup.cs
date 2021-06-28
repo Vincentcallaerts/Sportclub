@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Sportclub.Database.SporterDatabase;
+
 
 namespace Sportclub
 {
@@ -28,9 +29,27 @@ namespace Sportclub
         {
             services.AddControllersWithViews();
             services.AddTransient<ISporterDatabase, SporterDatabase>();
+
             services.AddDbContext<SporterDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
+
+            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            {
+                config.Password.RequiredLength = 3;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+                config.Password.RequireLowercase = false;
+            })
+                .AddEntityFrameworkStores<SporterDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Cookie";
+                config.LoginPath = "/Login/Login";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +70,8 @@ namespace Sportclub
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication(); //Ik ben
+            app.UseAuthorization(); //Ik mag
 
             app.UseEndpoints(endpoints =>
             {
